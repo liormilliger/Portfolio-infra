@@ -1,0 +1,43 @@
+ECR
+EKS
+S3
+IAM roles
+Security groups
+vpc
+Ec2/Jenkins
+
+nginx ingress controller
+argo
+prometheus
+EFK logging
+
+
+provider
+helm
+k8s
+kubectl
+
+DONE:
+
+AWS -
+IAM role created - with ECR and S3 FullAccess permissions to EC2s
+Role attached to Jenkins running instance in AWS
+ECR Created in AWS
+S3 Created in AWS for tfstate - with /data folder
+
+TF -
+Network.tf - creating vpc with one subnet (public), routing table, routes and route_table_association
+variables.tf - creating dynamic file with vars - Mainly for connecting from different locations
+outputs.tf - which info do i want tf to output?
+provider.tf - s3 bucket added as provider to save tf.state file
+EKS.tf - needs to be figured out
+
+
+Jenkinsfile -
+few ENV VARS added
+
+Draw.io - 
+flowchart architecture drawing done - NEEDS TO BE CHECKED
+
+nginx.conf -
+File has been added - NEEDS EDITING
