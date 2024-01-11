@@ -1,0 +1,11 @@
+-------------------------[ CLUSTER ]---------------------------------------
+After the cluster is up - we use this command to enable working with kubectl:
+
+aws eks --region us-east-1 update-kubeconfig \
+    --name $(terraform output -raw cluster_name)
+
+-------------------------------[ ECR ]--------------------------------------------
+
+Importing an existing ECR to the infrastructure after tf init BEFORE tf apply
+
+tf import module.ecr.aws_ecr_repository.this arn:aws:ecr:us-east-1:644435390668:repository/liorm-portfolio

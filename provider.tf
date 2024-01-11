@@ -5,6 +5,11 @@ terraform {
       source  = "hashicorp/aws"
       version = "~> 5.0"
     }
+
+    helm = {
+      source  = "hashicorp/helm"
+      version = ">= 2.10.0"
+    }
   }
 
   backend "s3" {
@@ -15,12 +20,17 @@ terraform {
     # dynamodb_table = "liorm-lockstate"
   }
 }
-# provider "kubernetes" {
-#   host                   = module.eks.cluster_endpoint
-#   # cluster_ca_certificate = base64decode(module.eks.certificate_authority_data)
-#   # token                  = data.aws_eks_cluster_auth.default.token
 
-# }
+provider "helm" {
+  kubernetes {
+    config_path = "~/.kube/config"
+  }
+}
+
+provider "kubernetes" {
+  host                   = module.eks.cluster_endpoint
+  cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
+}
 
 provider "aws" {
   shared_config_files      = ["~/.aws/config"]

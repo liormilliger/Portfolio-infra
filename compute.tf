@@ -15,3 +15,24 @@ resource "aws_instance" "my-tf-machine" {
     Name = "my-terraform-machine"
   }
 }
+
+resource "kubernetes_namespace" "argocd" {
+  metadata {
+    name = "argocd"
+  }
+}
+
+
+resource "helm_release" "argocd" {
+  name = "argocd"
+
+  repository = "https://argoproj.github.io/argo-helm"
+  chart      = "argo-cd"
+  namespace  = kubernetes_namespace.argocd.metadata.0.name
+
+  # version   = "4.5.2"
+
+  depends_on = [
+    kubernetes_namespace.argocd
+  ]
+}
