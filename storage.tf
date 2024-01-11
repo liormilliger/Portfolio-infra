@@ -1,23 +1,31 @@
-# resource "aws_ebs_volume" "Jenkins-Volume" {
-#   availability_zone = "us-east-1a"
-#   size              = 20
-# #   snapshot_id = "snap-098deebfc51135bc0"
-#   type = "standard"
-#   tags = {
-#     Name = "Jenkins-Volume"
-#   }
-# }
+# module "ecr" {
+#   source = "terraform-aws-modules/ecr/aws"
 
-# resource "aws_ebs_snapshot" "Jenkins-Volume" {
-#   volume_id = aws_ebs_volume.Jenkins-Volume.id
+#   repository_name = "liorm-portfolio"
+#   repository_image_scan_on_push=false
+#   # arn:aws:ecr:us-east-1:644435390668:repository/liorm-portfolio
+#   # tf import module.ecr.aws_ecr_repository.this arn:aws:ecr:us-east-1:644435390668:repository/liorm-portfolio
+#   #   repository_read_write_access_arns = ["arn:aws:iam::644435390668:role/liorm-portfolio-roles"]
+#   #   repository_lifecycle_policy = jsonencode({
+#   #     rules = [
+#   #       {
+#   #         rulePriority = 1,
+#   #         description  = "Keep last 30 images",
+#   #         selection = {
+#   #           tagStatus     = "tagged",
+#   #           tagPrefixList = ["v"],
+#   #           countType     = "imageCountMoreThan",
+#   #           countNumber   = 30
+#   #         },
+#   #         action = {
+#   #           type = "expire"
+#   #         }
+#   #       }
+#   #     ]
+#   #   })
 
 #   #   tags = {
-#   #     Name = ""
+#   #     Terraform   = "true"
+#   #     Environment = "dev"
 #   #   }
-# }
-
-# import {
-#   to = aws_ebs_snapshot.Jenkins-Volume
-#   id = "snap-098deebfc51135bc0"
-# # USE COMMAND: tf import aws_ebs_snapshot.Jenkins-Volume snap-098deebfc51135bc0
 # }

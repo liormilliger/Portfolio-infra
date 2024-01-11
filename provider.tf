@@ -15,6 +15,12 @@ terraform {
     # dynamodb_table = "liorm-lockstate"
   }
 }
+# provider "kubernetes" {
+#   host                   = module.eks.cluster_endpoint
+#   # cluster_ca_certificate = base64decode(module.eks.certificate_authority_data)
+#   # token                  = data.aws_eks_cluster_auth.default.token
+
+# }
 
 provider "aws" {
   shared_config_files      = ["~/.aws/config"]
