@@ -12,13 +12,18 @@ resource "aws_instance" "my-tf-machine" {
   vpc_security_group_ids = [aws_security_group.liorm-portfolio-SG.id]
 
   tags = {
-    Name = "my-terraform-machine"
+    Name = "Jenkins-Server-TF"
   }
 }
 
 resource "kubernetes_namespace" "argocd" {
   metadata {
     name = "argocd"
+  }
+  depends_on = [ module.eks ]
+  
+  lifecycle {
+    prevent_destroy = false
   }
 }
 
@@ -35,4 +40,27 @@ resource "helm_release" "argocd" {
   depends_on = [
     kubernetes_namespace.argocd
   ]
+
+  lifecycle {
+    prevent_destroy = false
+  }
+}
+
+resource "kubernetes_namespace" "nginx-controller" {
+  metadata {
+    name = "nginx-controller"
+  }
+  depends_on = [ module.eks ]
+  
+  lifecycle {
+    prevent_destroy = false
+  }
+}
+
+resource "helm_release" "Nginx-Ingress-Controller" {
+  name = "nginx-ingress-controller"
+
+  repository = "https://kubernetes.github.io/ingress-nginx"
+  chart      = "ingress-nginx"
+  namespace = kubernetes_namespace.nginx-controller.metadata.0.name
 }

@@ -1,8 +1,35 @@
 -------------------------[ CLUSTER ]---------------------------------------
 After the cluster is up - we use this command to enable working with kubectl:
 
-aws eks --region us-east-1 update-kubeconfig \
-    --name $(terraform output -raw cluster_name)
+aws eks --region us-east-1 update-kubeconfig --name blog-cluster
+
+provider "kubernetes" {
+  host                   = module.eks.cluster_endpoint
+  cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
+
+  exec {
+    api_version = "client.authentication.k8s.io/v1alpha1"
+    command     = "aws"
+    args = ["eks", "--region", "us-east-1", "update-kubeconfig", "--name", "blog-cluster"]
+  }
+}
+--------------------------[ AUTH ] -------------------------------------------
+
+kubectl edit configmap -n kube-system aws-auth
+
+data:
+  mapRoles: |
+    - groups:
+      - system:bootstrappers
+      - system:nodes
+      rolearn: arn:aws:iam::644435390668:role/TF-Machines-eks-node-group-20240111193613081900000001
+      username: system:node:{{EC2PrivateDNSName}}
+<<<<<<<<[ ADD ]>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>      
+    - rolearn: arn:aws:iam::644435390668:role/TerraformEKSRole
+      username: terraform
+      groups:
+        - system:masters
+
 
 -------------------------------[ ECR ]--------------------------------------------
 

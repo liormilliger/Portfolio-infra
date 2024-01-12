@@ -23,10 +23,10 @@ module "eks" {
   }
 
   eks_managed_node_groups = {
-    green = {
-      min_size     = 2
+    TF-Machines = {
+      min_size     = 1
       max_size     = 3
-      desired_size = 3
+      desired_size = 2
 
       instance_types = ["t3a.medium"]
       capacity_type  = "ON_DEMAND"
@@ -39,3 +39,4 @@ module "eks" {
     expiration_date = "01-01-2028"
   }
 }
+
