@@ -9,13 +9,13 @@ module "eks" {
   cluster_name    = "blog-cluster"
   cluster_version = "1.27"
 
-  cluster_endpoint_public_access  = true
+  cluster_endpoint_public_access = true
 
-#   create_iam_role = false
-#   iam_role_arn = data.aws_iam_role.eks_service_role.arn
+  #   create_iam_role = false
+  #   iam_role_arn = data.aws_iam_role.eks_service_role.arn
 
-  vpc_id                   = aws_vpc.liorm-portfolio.id
-  subnet_ids               = [aws_subnet.us-east-sub1.id, aws_subnet.us-east-sub2.id, aws_subnet.us-east-sub3.id, aws_subnet.us-east-sub4.id]
+  vpc_id     = aws_vpc.liorm-portfolio.id
+  subnet_ids = [aws_subnet.us-east-sub1.id, aws_subnet.us-east-sub2.id, aws_subnet.us-east-sub3.id, aws_subnet.us-east-sub4.id]
 
   # EKS Managed Node Group(s)
   eks_managed_node_group_defaults = {
@@ -34,8 +34,8 @@ module "eks" {
   }
 
   tags = {
-    Owner = "liorm"
-    bootcamp   = "19"
+    Owner           = "liorm"
+    bootcamp        = "19"
     expiration_date = "01-01-2028"
   }
 }
