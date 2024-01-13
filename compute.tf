@@ -10,6 +10,11 @@ resource "aws_instance" "my-tf-machine" {
   availability_zone      = "us-east-1a"
   subnet_id              = aws_subnet.us-east-sub1.id
   vpc_security_group_ids = [aws_security_group.liorm-portfolio-SG.id]
+  
+  # ebs_block_device {
+  #   device_name = "Jenkins-Volume"
+  #   snapshot_id = "snap-091ad9e7cd4cb0736"
+  # }
 
   tags = {
     Name = "Jenkins-Server-TF"
@@ -20,11 +25,11 @@ resource "kubernetes_namespace" "argocd" {
   metadata {
     name = "argocd"
   }
-  depends_on = [ module.eks ]
+  # depends_on = [ module.eks ]
 
-  lifecycle {
-    prevent_destroy = false
-  }
+  # lifecycle {
+  #   prevent_destroy = false
+  # }
 }
 
 
@@ -37,26 +42,30 @@ resource "helm_release" "argocd" {
 
   # version   = "4.5.2"
   # depends_on and lifecycle might need hashing when destroying cluster
+  
+  # values = [
+  #   file("${path.module}/nginx-values.yaml")
+  # ]
+  
+  # depends_on = [
+  #   kubernetes_namespace.argocd
+  # ]
 
-  depends_on = [
-    kubernetes_namespace.argocd
-  ]
-
-  lifecycle {
-    prevent_destroy = false
-  }
+  # lifecycle {
+  #   prevent_destroy = false
+  # }
 }
 
 resource "kubernetes_namespace" "nginx-controller" {
   metadata {
     name = "nginx-controller"
   }
-  # depends_on and lifecycle might need hashing when destroying cluster
-  depends_on = [ module.eks ]
+  # # depends_on and lifecycle might need hashing when destroying cluster
+  # depends_on = [ module.eks ]
 
-  lifecycle {
-    prevent_destroy = false
-  }
+  # lifecycle {
+  #   prevent_destroy = false
+  # }
 }
 
 resource "helm_release" "Nginx-Ingress-Controller" {
@@ -65,4 +74,12 @@ resource "helm_release" "Nginx-Ingress-Controller" {
   repository = "https://kubernetes.github.io/ingress-nginx"
   chart      = "ingress-nginx"
   namespace  = kubernetes_namespace.nginx-controller.metadata.0.name
+
+  # depends_on = [
+  #   kubernetes_namespace.nginx-controller
+  # ]
+
+  # lifecycle {
+  #   prevent_destroy = false
+  # }
 }

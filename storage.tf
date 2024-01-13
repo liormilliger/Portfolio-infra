@@ -1,20 +1,22 @@
-resource "aws_ebs_volume" "Jenkins-Volume" {
-  availability_zone = "us-east-1a"
-  size              = 30  # Size in GiBs
-  type              = "gp3"  # General purpose SSD
-  lifecycle {
-    prevent_destroy = true
-  }
-  tags = {
-    Name = "Jenkins-Volume"
-  }
-}
+# resource "aws_ebs_volume" "Jenkins-Volume" {
+#   availability_zone = "us-east-1a"
+#   size              = 20  # Size in GiBs
+#   type              = "gp2"  # General purpose SSD
+  
+# #   lifecycle {
+# #     prevent_destroy = true
+# #   }
 
-resource "aws_volume_attachment" "ebs_attachment" {
-  device_name = "/dev/sdh"
-  volume_id   = aws_ebs_volume.Jenkins-Volume.id
-  instance_id = aws_instance.my-tf-machine.id
-}
+#   tags = {
+#     Name = "Jenkins-Volume"
+#   }
+# }
+
+# resource "aws_volume_attachment" "ebs_attachment" {
+#   device_name = "/dev/sda1"
+#   volume_id   = aws_ebs_volume.Jenkins-Volume.id
+#   instance_id = aws_instance.my-tf-machine.id
+# }
 
 # module "ecr" {
 #   source = "terraform-aws-modules/ecr/aws"
