@@ -21,7 +21,7 @@ resource "kubernetes_namespace" "argocd" {
     name = "argocd"
   }
   depends_on = [ module.eks ]
-  
+
   lifecycle {
     prevent_destroy = false
   }
@@ -36,6 +36,7 @@ resource "helm_release" "argocd" {
   namespace  = kubernetes_namespace.argocd.metadata.0.name
 
   # version   = "4.5.2"
+  # depends_on and lifecycle might need hashing when destroying cluster
 
   depends_on = [
     kubernetes_namespace.argocd
@@ -50,8 +51,9 @@ resource "kubernetes_namespace" "nginx-controller" {
   metadata {
     name = "nginx-controller"
   }
+  # depends_on and lifecycle might need hashing when destroying cluster
   depends_on = [ module.eks ]
-  
+
   lifecycle {
     prevent_destroy = false
   }
@@ -62,5 +64,5 @@ resource "helm_release" "Nginx-Ingress-Controller" {
 
   repository = "https://kubernetes.github.io/ingress-nginx"
   chart      = "ingress-nginx"
-  namespace = kubernetes_namespace.nginx-controller.metadata.0.name
+  namespace  = kubernetes_namespace.nginx-controller.metadata.0.name
 }
