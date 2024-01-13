@@ -12,7 +12,7 @@ resource "aws_ebs_volume" "Jenkins-Volume" {
 
 resource "aws_volume_attachment" "ebs_attachment" {
   device_name = "/dev/sdh"
-  volume_id   = aws_ebs_volume.example.id
+  volume_id   = aws_ebs_volume.Jenkins-Volume.id
   instance_id = aws_instance.my-tf-machine.id
 }
 
