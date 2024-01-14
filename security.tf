@@ -25,8 +25,8 @@ resource "aws_security_group" "liorm-portfolio-SG" {
   }
 
   ingress {
-    from_port   = 8000
-    to_port     = 8100
+    from_port   = 1111
+    to_port     = 9999
     protocol    = "tcp"
     cidr_blocks = ["${var.KARMI_IP}", "${var.HOME_IP}", "${var.Develeap_IP}"]
   }
