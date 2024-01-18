@@ -1,7 +1,7 @@
 resource "aws_security_group" "liorm-portfolio-SG" {
   name        = "liorm-SG"
   description = "Allow incoming HTTP traffic from your IP"
-  vpc_id      = aws_vpc.liorm-portfolio.id
+  vpc_id      = var.vpc
 
   ingress {
     from_port   = 80

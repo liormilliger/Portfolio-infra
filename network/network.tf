@@ -61,7 +61,6 @@ resource "aws_route_table" "liorm" {
   }
 }
 
-
 resource "aws_route" "default_route" {
   route_table_id         = aws_route_table.liorm.id
   destination_cidr_block = "0.0.0.0/0"
