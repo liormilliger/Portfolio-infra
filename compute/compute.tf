@@ -3,7 +3,7 @@ resource "aws_key_pair" "liorm_key" {
   public_key = file("~/.ssh/liorm-portfolio-key.pub")
 }
 
-# resource "aws_instance" "my-tf-machine" {
+# resource "aws_instance" "Jenkins-tf" {
 #   ami                    = "ami-08502f17193d65b52"
 #   # ami-25                    = "ami-01c115fd0ea0ea9a2"
 #   instance_type          = "t3a.large"
