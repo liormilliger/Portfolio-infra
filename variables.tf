@@ -12,7 +12,8 @@ variable "TYPE" {
 variable "HOME_IP" {
   description = "IP address at home"
   type        = string
-  default     = "93.172.15.217/32"
+  default = "85.64.145.23/32"
+  # default     = "93.172.15.217/32"
 }
 
 variable "KARMI_IP" {

@@ -33,9 +33,6 @@ provider "helm" {
     }
   }
 }
-# data "aws_eks_cluster" "cluster" {
-#   name = module.eks.cluster_name
-# }
 
 data "aws_eks_cluster_auth" "cluster" {
   name = module.eks.cluster_name
@@ -90,9 +87,9 @@ module "eks" {
 
   eks_managed_node_groups = {
     TF-Nodes = {
-      min_size     = 1
-      max_size     = 3
-      desired_size = 2
+      min_size     = 2
+      max_size     = 4
+      desired_size = 3
 
       instance_types = ["t3a.large"]
       capacity_type  = "ON_DEMAND"
@@ -110,11 +107,6 @@ resource "kubernetes_namespace" "argocd" {
   metadata {
     name = "argocd"
   }
-  # depends_on = [ module.eks ]
-
-  # lifecycle {
-  #   prevent_destroy = false
-  # }
 }
 
 
@@ -125,32 +117,15 @@ resource "helm_release" "argocd" {
   chart      = "argo-cd"
   namespace  = kubernetes_namespace.argocd.metadata.0.name
 
-  # version   = "4.5.2"
-  # depends_on and lifecycle might need hashing when destroying cluster
-  
   # values = [
   #   file("${path.module}/nginx-values.yaml")
   # ]
-  
-  # depends_on = [
-  #   kubernetes_namespace.argocd
-  # ]
-
-  # lifecycle {
-  #   prevent_destroy = false
-  # }
 }
 
 resource "kubernetes_namespace" "nginx-controller" {
   metadata {
     name = "nginx-controller"
   }
-  # # depends_on and lifecycle might need hashing when destroying cluster
-  # depends_on = [ module.eks ]
-
-  # lifecycle {
-  #   prevent_destroy = false
-  # }
 }
 
 resource "helm_release" "Nginx-Ingress-Controller" {
@@ -159,14 +134,6 @@ resource "helm_release" "Nginx-Ingress-Controller" {
   repository = "https://kubernetes.github.io/ingress-nginx"
   chart      = "ingress-nginx"
   namespace  = kubernetes_namespace.nginx-controller.metadata.0.name
-
-  # depends_on = [
-  #   kubernetes_namespace.nginx-controller
-  # ]
-
-  # lifecycle {
-  #   prevent_destroy = false
-  # }
 }
 
 module "network" {
@@ -175,12 +142,6 @@ module "network" {
 
 module "compute" {
   source = "./compute"
-
-#   vpc     = module.network.VPC_ID
-#   subnet1 = module.network.subnet1
-#   subnet2 = module.network.subnet2
-#   subnet3 = module.network.subnet3
-#   subnet4 = module.network.subnet4
 }
 
 module "security" {
