@@ -82,16 +82,16 @@ module "eks" {
 
   # EKS Managed Node Group(s)
   eks_managed_node_group_defaults = {
-    instance_types = ["t3a.xlarge"]
+    instance_types = ["t3a.large"]
   }
 
   eks_managed_node_groups = {
-    TF-Nodes = {
+    Liors-PF-Nodes = {
       min_size     = 2
       max_size     = 4
       desired_size = 3
 
-      instance_types = ["t3a.xlarge"]
+      instance_types = ["t3a.large"]
       capacity_type  = "ON_DEMAND"
     }
   }
@@ -122,19 +122,19 @@ resource "helm_release" "argocd" {
   # ]
 }
 
-resource "kubernetes_namespace" "nginx-controller" {
-  metadata {
-    name = "nginx-controller"
-  }
-}
+# resource "kubernetes_namespace" "nginx-controller" {
+#   metadata {
+#     name = "nginx-controller"
+#   }
+# }
 
-resource "helm_release" "Nginx-Ingress-Controller" {
-  name = "nginx-ingress-controller"
+# resource "helm_release" "Nginx-Ingress-Controller" {
+#   name = "nginx-ingress-controller"
 
-  repository = "https://kubernetes.github.io/ingress-nginx"
-  chart      = "ingress-nginx"
-  namespace  = kubernetes_namespace.nginx-controller.metadata.0.name
-}
+#   repository = "https://kubernetes.github.io/ingress-nginx"
+#   chart      = "ingress-nginx"
+#   namespace  = kubernetes_namespace.nginx-controller.metadata.0.name
+# }
 
 module "network" {
   source = "./network"
