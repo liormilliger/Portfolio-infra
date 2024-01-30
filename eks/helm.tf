@@ -7,22 +7,42 @@ resource "helm_release" "argocd" {
   repository = "https://argoproj.github.io/argo-helm"
   chart      = "argo-cd"
 
-  set {
-    name  = "configs.repositories[0].url"
-    value = "git@github.com:liormilliger/Portfolio-config.git"
-  }
-
-  set {
-    name  = "configs.repositories[0].sshPrivateKeySecret.name"
-    value = "config-repo-ssh"
-  }
-
-  set {
-    name  = "configs.repositories[0].sshPrivateKeySecret.key"
-    value = "sshPrivateKey"
-  }
-
 }
+
+# resource "argocd_application" "config_repo_app" {
+#   depends_on = [kubernetes_secret.config_repo_ssh]
+
+#   metadata {
+#     name      = "portfolio-config"
+#     namespace = "argocd"
+#   }
+
+#   spec {
+#     project = "default"
+
+#     source {
+#       repo_url        = "git@github.com:liormilliger/Portfolio-config.git"
+#       path            = "app-of-apps"
+#       target_revision = "main"
+#       ssh_private_key_secret {
+#         name = kubernetes_secret.config_repo_ssh.metadata.0.name
+#         key  = "sshPrivateKey"
+#       }
+#     }
+
+#     destination {
+#       server    = "https://kubernetes.default.svc"
+#       namespace = "argocd"
+#     }
+
+#     sync_policy {
+#       automated {
+#         prune      = true
+#         self_heal  = true
+#       }
+#     }
+#   }
+# }
 
 resource "helm_release" "csi-driver" {
   name = "aws-ebs-csi-driver"
