@@ -1,9 +1,3 @@
-# resource "aws_eks_addon" "aws-ebs-csi-driver" {
-#   cluster_name = aws_eks_cluster.blog-app.name
-#   addon_name   = "aws-ebs-csi-driver"
-
-#   depends_on = [aws_eks_node_group.cluster-nodes]
-# }
 resource "aws_eks_addon" "kube-proxy" {
   cluster_name = aws_eks_cluster.blog-app.name
   addon_name   = "kube-proxy"

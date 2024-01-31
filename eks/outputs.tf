@@ -13,6 +13,16 @@ output "cluster_ca" {
     value = aws_eks_cluster.blog-app.certificate_authority[0].data
 }
 
+output "argocd_helm" {
+    description = "ArgoCD Helm Release"
+    value = helm_release.argocd
+}
+
+output "config_repo_sync" {
+    description = "Syncing Config-Repo with ArgoCD"
+    value = kubernetes_secret.config_repo_ssh
+}
+
 # output "config_repo_cred" {
 #     description = "config repo ssh key"
 #     value = argocd_repository_credentials.private.ssh_private_key

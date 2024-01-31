@@ -46,7 +46,10 @@ resource "helm_release" "argocd" {
 
 resource "helm_release" "csi-driver" {
   name = "aws-ebs-csi-driver"
+  namespace = "kube-system"
 
   repository = "https://kubernetes-sigs.github.io/aws-ebs-csi-driver"
   chart      = "aws-ebs-csi-driver"
+
+  depends_on = [ kubernetes_secret.csi_secret ]
 }

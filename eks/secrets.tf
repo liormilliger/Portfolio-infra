@@ -11,7 +11,7 @@ data "aws_secretsmanager_secret_version" "ebs-csi-secret" {
 resource "kubernetes_secret" "csi_secret" {
   metadata {
     name = "aws-secret"
-    namespace = "kube-system"
+    # namespace = "default"
   }
 
   data = {

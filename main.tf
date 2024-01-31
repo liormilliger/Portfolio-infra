@@ -11,6 +11,9 @@ module "network" {
   source = "./network"
 }
 
+module "files" {
+  source = "./files"
+}
 # module "compute" {
 #   source = "./compute"
 # }

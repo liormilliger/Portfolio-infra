@@ -1,5 +1,5 @@
 resource "aws_iam_role" "nodes" {
-  name = "eks-noge-group-nodes"
+  name = "eks-node-group-liorm-nodes"
 
   assume_role_policy = jsonencode({
   
@@ -12,6 +12,11 @@ resource "aws_iam_role" "nodes" {
     }]
     Version: "2012-10-17"
   })
+}
+
+resource "aws_iam_role_policy_attachment" "nodes-AmazonEBSCSIDriverPolicy" {
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"
+  role       = aws_iam_role.nodes.name
 }
 
 resource "aws_iam_role_policy_attachment" "nodes-AmazonEKSWorkerNodePolicy" {
@@ -91,14 +96,4 @@ resource "aws_launch_template" "naming-nodes" {
       expiration_date = "01-01-2028"
     }
   }
-  # key_name = "local-provisioner"
-
-  # block_device_mappings {
-  #   device_name = "/dev/xvdb"
-
-  #   ebs {
-  #     volume_size = 50
-  #     volume_type = "gp2"
-  #   }
-  # }
 }

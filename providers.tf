@@ -1,14 +1,25 @@
 terraform {
+  required_version = ">= 0.13"
 
   required_providers {
     aws = {
       source  = "hashicorp/aws"
       version = "~> 5.0"
     }
+    
+    kubernetes = {
+      source = "hashicorp/kubernetes"
+      version = "~> 2.0"
+    }
 
     helm = {
       source  = "hashicorp/helm"
       version = ">= 2.10.0"
+    }
+
+    kubectl = {
+      source  = "gavinbunney/kubectl"
+      version = ">= 1.14"
     }
   }
 
@@ -38,27 +49,42 @@ provider "aws" {
 provider "helm" {
   kubernetes {
     config_path = "~/.kube/config"
-        # host                   = module.eks.cluster_endpoint
-        # cluster_ca_certificate = base64decode(module.eks.cluster_ca)
+    host                   = module.eks.cluster_endpoint
+    cluster_ca_certificate = base64decode(module.eks.cluster_ca)
   }
+}
+
+resource "kubectl_manifest" "app_of_apps" {
+  depends_on = [module.eks.argocd_helm, module.eks.config_repo_sync]
+  #kubernetes_secret.taskit_gitops_repo_cred, kubernetes_secret.taskit_secret
+  yaml_body = file("${path.module}/files/app-of-apps.yaml")
 }
 
 data "aws_eks_cluster_auth" "cluster" {
   name = module.eks.cluster_name
 }
 
+# data "aws_eks_cluster" "cluster" {
+#   name = module.eks.cluster_name
+# }
+
 provider "kubernetes" {
   host                   = module.eks.cluster_endpoint
   cluster_ca_certificate = base64decode(module.eks.cluster_ca)
   token                  = data.aws_eks_cluster_auth.cluster.token
-
-  # exec {
-  #   api_version = "client.authentication.k8s.io/v1alpha1"
-  #   command     = "aws"
-  #   args = ["eks", "--region", "us-east-1", "update-kubeconfig", "--name", "blog-cluster"]
-  # }
 }
 
+provider "kubectl" {
+  host                   = module.eks.cluster_endpoint
+  cluster_ca_certificate = base64decode(module.eks.cluster_ca)
+  # token                  = data.aws_eks_cluster_auth.cluster.token
+  # load_config_file = false
+  exec {
+    api_version = "client.authentication.k8s.io/v1beta1"
+    command     = "aws"
+    args        = ["eks", "get-token", "--cluster-name", module.eks.cluster_name]
+  }
+}
 # data "aws_iam_role" "eks_service_role" {
 #   name = "AWSServiceRoleForAmazonEKS"
 # }
