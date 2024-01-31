@@ -17,8 +17,3 @@ output "subnet3" {
   description = "Subnet AZ3"
   value = aws_subnet.us-east-sub3.id
 }
-
-output "subnet4" {
-  description = "Subnet AZ4"
-  value = aws_subnet.us-east-sub4.id
-}

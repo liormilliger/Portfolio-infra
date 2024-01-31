@@ -18,7 +18,3 @@
 #   description = "subnet-1c"
 # }
 
-# variable "subnet4" {
-#   type        = string
-#   description = "subnet-1d"
-# }

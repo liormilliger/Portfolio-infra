@@ -3,6 +3,7 @@ resource "aws_key_pair" "liorm_key" {
   public_key = file("~/.ssh/liorm-portfolio-key.pub")
 }
 
+# # Jenkins instance with ami from snapshot
 # resource "aws_instance" "Jenkins-tf" {
 #   ami                    = "ami-08502f17193d65b52"
 #   # ami-25                    = "ami-01c115fd0ea0ea9a2"

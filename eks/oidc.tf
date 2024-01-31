@@ -1,3 +1,5 @@
+# Securing Connection between K8S and AWS
+
 data "tls_certificate" "eks" {
   url = aws_eks_cluster.blog-app.identity[0].oidc[0].issuer
 }

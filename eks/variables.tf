@@ -13,11 +13,6 @@ variable "subnet3" {
   type        = string
 }
 
-variable "subnet4" {
-  description = "subnet id 4"
-  type        = string
-}
-
 variable "cluster-name" {
   description = "cluster name"
   type        = string

@@ -1,3 +1,5 @@
+# Outputs to use as Vars
+
 output "cluster_name" {
     description = "name of cluster"
     value = aws_eks_cluster.blog-app.name

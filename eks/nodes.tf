@@ -1,3 +1,5 @@
+# Creating IAM Role for Nodes
+
 resource "aws_iam_role" "nodes" {
   name = "eks-node-group-liorm-nodes"
 
@@ -13,6 +15,8 @@ resource "aws_iam_role" "nodes" {
     Version: "2012-10-17"
   })
 }
+
+# Assuming Policies for Nodes
 
 resource "aws_iam_role_policy_attachment" "nodes-AmazonEBSCSIDriverPolicy" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"
@@ -34,6 +38,7 @@ resource "aws_iam_role_policy_attachment" "nodes-AmazonEC2ContainerRegistryReadO
   role       = aws_iam_role.nodes.name
 }
 
+# Creating Node Group
 resource "aws_eks_node_group" "cluster-nodes" {
   cluster_name    = aws_eks_cluster.blog-app.name
   node_group_name = "public-nodes"
@@ -42,8 +47,7 @@ resource "aws_eks_node_group" "cluster-nodes" {
   subnet_ids = [
     var.subnet1,
     var.subnet2,
-    var.subnet3,
-    var.subnet4
+    var.subnet3
   ]
 
   capacity_type  = "ON_DEMAND"
@@ -83,6 +87,7 @@ resource "aws_eks_node_group" "cluster-nodes" {
   ]
 }
 
+# Naming Nodes
 resource "aws_launch_template" "naming-nodes" {
   name = "naming-nodes"
   

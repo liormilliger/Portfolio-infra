@@ -1,3 +1,5 @@
+# Installing Kubernetes Networking Components
+
 resource "aws_eks_addon" "kube-proxy" {
   cluster_name = aws_eks_cluster.blog-app.name
   addon_name   = "kube-proxy"

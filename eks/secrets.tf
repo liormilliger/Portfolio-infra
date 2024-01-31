@@ -49,8 +49,3 @@ resource "kubernetes_secret" "config_repo_ssh" {
   }
 }
 
-# resource "argocd_repository_credentials" "private" {
-#   url             = "git@github.com:liormilliger/Portfolio-config.git"
-#   username        = "git"
-#   ssh_private_key = data.aws_secretsmanager_secret_version.config_repo_secret_current.secret_string
-# }
