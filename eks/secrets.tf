@@ -11,7 +11,6 @@ data "aws_secretsmanager_secret_version" "ebs-csi-secret" {
 resource "kubernetes_secret" "csi_secret" {
   metadata {
     name = "aws-secret"
-    # namespace = "default"
   }
 
   data = {
@@ -33,7 +32,7 @@ resource "kubernetes_secret" "config_repo_ssh" {
   depends_on = [helm_release.argocd]
 
   metadata {
-    name      = "config-repo-ssh"
+    name      = var.config-repo-secret-name
     namespace = "argocd"
 
     labels = {
@@ -42,9 +41,9 @@ resource "kubernetes_secret" "config_repo_ssh" {
   }
 
   data = {
-    name          = "config-repo-ssh"
+    name          = var.config-repo-secret-name
     type          = "git"
-    url           = "git@github.com:liormilliger/Portfolio-config.git"
+    url           = var.config-repo-url
     sshPrivateKey = data.aws_secretsmanager_secret_version.config_repo_secret_current.secret_string
   }
 }

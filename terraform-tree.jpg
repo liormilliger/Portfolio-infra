@@ -1,0 +1,36 @@
+.
+├── compute
+│   ├── compute.tf
+│   └── variables.tf
+├── eks
+│   ├── addons.tf
+│   ├── cluster.tf
+│   ├── helm.tf
+│   ├── nodes.tf
+│   ├── oidc.tf
+│   ├── outputs.tf
+│   ├── secrets.tf
+│   └── variables.tf
+├── files
+│   ├── app-of-apps.yaml
+│   ├── fluentd-cm-GPT.yaml
+│   ├── prometheus-service-monitor.yaml
+│   └── storage-class-csi.yaml
+├── files.tf
+├── infra-Arch
+├── main.tf
+├── network
+│   ├── network.tf
+│   ├── outputs.tf
+│   └── variables.tf
+├── outputs.tf
+├── providers.tf
+├── security
+│   ├── outputs.tf
+│   ├── security.tf
+│   └── variables.tf
+├── terraform-tree.jpg
+├── terraform-tree.txt
+└── variables.tf
+
+6 directories, 28 files

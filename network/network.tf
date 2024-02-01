@@ -2,7 +2,7 @@ resource "aws_vpc" "liorm-portfolio" {
   cidr_block = "10.1.0.0/16"
 
   tags = {
-    Name = "liorm-portfolio"
+    Name = var.vpc-name
   }
 }
 
@@ -10,9 +10,9 @@ resource "aws_subnet" "us-east-sub1" {
   vpc_id                  = aws_vpc.liorm-portfolio.id
   cidr_block              = "10.1.1.0/24"
   map_public_ip_on_launch = true
-  availability_zone       = "us-east-1a"
+  availability_zone       = var.availability_zone[0]
   tags = {
-    Name = "liorm-us-east-sub1"
+    Name = var.az_name[0]
   }
 }
 
@@ -20,9 +20,9 @@ resource "aws_subnet" "us-east-sub2" {
   vpc_id                  = aws_vpc.liorm-portfolio.id
   cidr_block              = "10.1.2.0/24"
   map_public_ip_on_launch = true
-  availability_zone       = "us-east-1b"
+  availability_zone       = var.availability_zone[1]
   tags = {
-    Name = "liorm-us-east-sub2"
+    Name = var.az_name[1]
   }
 }
 
@@ -30,16 +30,16 @@ resource "aws_subnet" "us-east-sub3" {
   vpc_id                  = aws_vpc.liorm-portfolio.id
   cidr_block              = "10.1.3.0/24"
   map_public_ip_on_launch = true
-  availability_zone       = "us-east-1c"
+  availability_zone       = var.availability_zone[2]
   tags = {
-    Name = "liorm-us-east-sub3"
+    Name = var.az_name[2]
   }
 }
 
 resource "aws_internet_gateway" "liorm" {
   vpc_id = aws_vpc.liorm-portfolio.id
   tags = {
-    Name = "liorm-portfolio"
+    Name = var.vpc-name
   }
 }
 
@@ -48,7 +48,7 @@ resource "aws_route_table" "liorm" {
   vpc_id = aws_vpc.liorm-portfolio.id
 
   tags = {
-    Name = "liorm-portfolio"
+    Name = var.vpc-name
   }
 }
 

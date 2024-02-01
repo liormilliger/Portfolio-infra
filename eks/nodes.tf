@@ -50,8 +50,8 @@ resource "aws_eks_node_group" "cluster-nodes" {
     var.subnet3
   ]
 
-  capacity_type  = "ON_DEMAND"
-  instance_types = ["t3a.xlarge"]
+  capacity_type  = var.node-capacity
+  instance_types = var.node-type
 
   scaling_config {
     desired_size = 3
@@ -95,7 +95,7 @@ resource "aws_launch_template" "naming-nodes" {
     resource_type = "instance"
     
     tags = {
-      Name = "Liors-Nodes"
+      Name = var.nodes-name
       Owner = "liorm"
       bootcamp = "19"
       expiration_date = "01-01-2028"

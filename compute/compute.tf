@@ -1,3 +1,5 @@
+# Launching EC2 with Jenkins built from AMI with its own Security Group
+
 resource "aws_key_pair" "liorm_key" {
   key_name   = "jenkins2024-key"
   public_key = file("~/.ssh/liorm-portfolio-key.pub")
@@ -10,7 +12,7 @@ resource "aws_key_pair" "liorm_key" {
 #   instance_type          = "t3a.large"
 #   key_name               = aws_key_pair.liorm_key.id
 #   availability_zone      = "us-east-1a"
-#   subnet_id              = aws_subnet.us-east-sub1.id
+#   subnet_id              = var.subnet1
 #   vpc_security_group_ids = [aws_security_group.liorm-portfolio-SG.id]
   
 #   # ebs_block_device {
