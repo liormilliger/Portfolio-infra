@@ -33,6 +33,7 @@ Before you begin, ensure you have the following:
 - Terraform latest version installed
 - AWS account
 - AWS CLI configured with appropriate credentials
+- S3 bucket with /data directory for storing terraform.tfstate file
 
 ## Installation and Setup
 
