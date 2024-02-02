@@ -25,6 +25,11 @@ output "config_repo_sync" {
     value = kubernetes_secret.config_repo_ssh
 }
 
+output "fluentd_ns" {
+    description = "creating fluentd namespace"
+    value = kubernetes_namespace.fluentd
+}
+
 # output "config_repo_cred" {
 #     description = "config repo ssh key"
 #     value = argocd_repository_credentials.private.ssh_private_key

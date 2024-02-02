@@ -49,7 +49,7 @@ variable "config-repo-url" {
   default = "git@github.com:liormilliger/Portfolio-config.git"
 }
 
-variable "fluentd_cm" {
+variable "fluentd-cm" {
   description = "fluentd configmap"
-  default = var.fluentd_cm
+  type = any
 }

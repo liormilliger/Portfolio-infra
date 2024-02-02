@@ -9,7 +9,7 @@ resource "helm_release" "argocd" {
   repository = "https://argoproj.github.io/argo-helm"
   chart      = "argo-cd"
 
-  depends_on = [ var.fluentd_cm ]
+  depends_on = [ var.fluentd-cm ]
 }
 
 resource "kubernetes_namespace" "fluentd" {
