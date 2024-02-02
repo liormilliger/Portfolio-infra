@@ -8,6 +8,15 @@ resource "helm_release" "argocd" {
 
   repository = "https://argoproj.github.io/argo-helm"
   chart      = "argo-cd"
+
+  depends_on = [ var.fluentd_cm ]
+}
+
+resource "kubernetes_namespace" "fluentd" {
+  metadata {
+  name = "fluentd"
+  }
+
 }
 
 resource "helm_release" "csi-driver" {

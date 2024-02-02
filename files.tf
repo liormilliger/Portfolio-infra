@@ -10,6 +10,6 @@ resource "kubectl_manifest" "service_monitor" {
 
 resource "kubectl_manifest" "fluentd_configmap" {
   yaml_body = file("${path.module}/files/fluentd-cm-GPT.yaml")
-  depends_on = [ module.eks.argocd_helm ]
+  depends_on = [ module.eks.fluentd_ns ]
 }
 

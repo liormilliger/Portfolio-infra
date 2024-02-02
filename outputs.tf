@@ -32,3 +32,8 @@
 #   description = "Kubernetes Cluster Name"
 #   value       = module.eks.cluster_name
 # }
+
+output "fluentd-cm" {
+    description = "fluentd comnfigmap"
+    value = kubectl_manifest.fluentd_configmap
+}
