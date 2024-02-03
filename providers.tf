@@ -6,9 +6,9 @@ terraform {
       source  = "hashicorp/aws"
       version = "~> 5.0"
     }
-    
+
     kubernetes = {
-      source = "hashicorp/kubernetes"
+      source  = "hashicorp/kubernetes"
       version = "~> 2.0"
     }
 
@@ -48,7 +48,7 @@ provider "aws" {
 
 provider "helm" {
   kubernetes {
-    config_path = "~/.kube/config"
+    config_path            = "~/.kube/config"
     host                   = module.eks.cluster_endpoint
     cluster_ca_certificate = base64decode(module.eks.cluster_ca)
   }

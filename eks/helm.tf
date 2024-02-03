@@ -28,3 +28,16 @@ resource "helm_release" "csi-driver" {
 
   depends_on = [ kubernetes_secret.csi_secret ]
 }
+
+resource "helm_release" "ingress-controller" {
+  name = "nginx-ingress-controller"
+  # namespace = "ingress-controller"
+  # create_namespace = true
+  # wait = true
+
+  repository = "https://kubernetes.github.io/ingress-nginx"
+  chart      = "ingress-nginx"
+
+  # depends_on = [ ]
+
+}
