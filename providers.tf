@@ -72,6 +72,7 @@ provider "kubernetes" {
   host                   = module.eks.cluster_endpoint
   cluster_ca_certificate = base64decode(module.eks.cluster_ca)
   token                  = data.aws_eks_cluster_auth.cluster.token
+  
 }
 
 provider "kubectl" {
@@ -85,6 +86,16 @@ provider "kubectl" {
     args        = ["eks", "get-token", "--cluster-name", module.eks.cluster_name]
   }
 }
+
+resource "null_resource" "update_kubeconfig" {
+  # Ensures this runs after the EKS cluster has been created
+  depends_on = [module.eks]
+
+  provisioner "local-exec" {
+    command = "aws eks --region us-east-1 update-kubeconfig --name ${module.eks.cluster_name}"
+  }
+}
+
 # data "aws_iam_role" "eks_service_role" {
 #   name = "AWSServiceRoleForAmazonEKS"
 # }
