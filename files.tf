@@ -8,7 +8,7 @@ resource "kubectl_manifest" "storage_class_csi" {
 # }
 
 resource "kubectl_manifest" "fluentd_configmap" {
-  yaml_body  = file("${path.module}/files/fluentd-cm-GPT.yaml")
+  yaml_body  = file("${path.module}/files/fluentd-cm.yaml")
   depends_on = [module.eks.fluentd_ns]
 }
 
