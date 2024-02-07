@@ -30,3 +30,6 @@ output "fluentd_ns" {
     value = kubernetes_namespace.fluentd
 }
 
+output "load_balancer_dns" {
+  value = data.kubernetes_service.ingress_lb.status.0.load_balancer.0.ingress.0.hostname
+}
