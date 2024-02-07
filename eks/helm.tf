@@ -31,13 +31,27 @@ resource "helm_release" "csi-driver" {
 
 resource "helm_release" "ingress-controller" {
   name = "nginx-ingress-controller"
-  # namespace = "ingress-controller"
-  # create_namespace = true
-  # wait = true
 
   repository = "https://kubernetes.github.io/ingress-nginx"
   chart      = "ingress-nginx"
+}
 
-  # depends_on = [ ]
+resource "kubernetes_secret" "config_repo_ssh" {
+  depends_on = [helm_release.argocd]
 
+  metadata {
+    name      = var.config-repo-secret-name
+    namespace = "argocd"
+
+    labels = {
+      "argocd.argoproj.io/secret-type" = "repository"
+    }
+  }
+
+  data = {
+    name          = var.config-repo-secret-name
+    type          = "git"
+    url           = var.config-repo-url
+    sshPrivateKey = data.aws_secretsmanager_secret_version.config_repo_secret_current.secret_string
+  }
 }

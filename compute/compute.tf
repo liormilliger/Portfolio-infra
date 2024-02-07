@@ -1,9 +1,9 @@
 # Launching EC2 with Jenkins built from AMI with its own Security Group
 
-resource "aws_key_pair" "liorm_key" {
-  key_name   = "jenkins2024-key"
-  public_key = file("~/.ssh/liorm-portfolio-key.pub")
-}
+# resource "aws_key_pair" "liorm_key" {
+#   key_name   = "jenkins2024-key"
+#   public_key = file("~/.ssh/liorm-portfolio-key.pub")
+# }
 
 # # Jenkins instance with ami from snapshot
 # resource "aws_instance" "Jenkins-tf" {

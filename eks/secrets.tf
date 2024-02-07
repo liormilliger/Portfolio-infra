@@ -28,23 +28,4 @@ data "aws_secretsmanager_secret_version" "config_repo_secret_current" {
   secret_id = data.aws_secretsmanager_secret.config_repo_secret.id
 }
 
-resource "kubernetes_secret" "config_repo_ssh" {
-  depends_on = [helm_release.argocd]
-
-  metadata {
-    name      = var.config-repo-secret-name
-    namespace = "argocd"
-
-    labels = {
-      "argocd.argoproj.io/secret-type" = "repository"
-    }
-  }
-
-  data = {
-    name          = var.config-repo-secret-name
-    type          = "git"
-    url           = var.config-repo-url
-    sshPrivateKey = data.aws_secretsmanager_secret_version.config_repo_secret_current.secret_string
-  }
-}
 

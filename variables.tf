@@ -25,7 +25,7 @@ variable "KARMI_IP" {
 variable "Develeap_IP" {
   description = "IP at Develeap Offices"
   type        = string
-  default     = "11.22.33.44/32"
+  default     = "5.28.129.66/32"
 }
 
 variable "REGION" {

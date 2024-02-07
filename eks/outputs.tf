@@ -30,8 +30,3 @@ output "fluentd_ns" {
     value = kubernetes_namespace.fluentd
 }
 
-# output "config_repo_cred" {
-#     description = "config repo ssh key"
-#     value = argocd_repository_credentials.private.ssh_private_key
-# }
-

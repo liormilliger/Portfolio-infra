@@ -69,12 +69,6 @@ resource "aws_eks_node_group" "cluster-nodes" {
     expiration_date = "01-01-2028"
   }
 
-  # taint {
-  #   key    = "team"
-  #   value  = "devops"
-  #   effect = "NO_SCHEDULE"
-  # }
-
   launch_template {
     name    = aws_launch_template.naming-nodes.name
     version = aws_launch_template.naming-nodes.latest_version
