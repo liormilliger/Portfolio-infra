@@ -30,12 +30,9 @@ resource "aws_eks_cluster" "blog-app" {
   role_arn = aws_iam_role.liorm-portfolio.arn
 
   vpc_config {
-    subnet_ids = [
-      var.subnet1,
-      var.subnet2,
-      var.subnet3
-    ]
+    subnet_ids = values(var.subnets)
   }
+  
   depends_on = [aws_iam_role_policy_attachment.liorm-AmazonEKSClusterPolicy]
 }
 

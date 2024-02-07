@@ -1,17 +1,27 @@
-variable "subnet1" {
-  description = "subnet id 1"
-  type        = string
+variable "IAM_policies" {
+  description = "ARNs for IAM policies of Nodes"
+  type = list(string)
+  default = [ 
+    "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy",
+    "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy",
+    "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy",
+    "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
+  ]
 }
 
-variable "subnet2" {
-  description = "subnet id 2"
-  type        = string
+variable "subnets" {
+  description = "A map of availability zones to subnet IDs"
+  type        = map(string)
 }
 
-variable "subnet3" {
-  description = "subnet id 3"
-  type        = string
-}
+# variable "secrets" {
+#   description = "Map of secret names to their ARNs"
+#   type        = map(string)
+#   default     = {
+#     "aws-credentials"       = "arn:aws:secretsmanager:us-east-1:644435390668:secret:aws-secret-qXOtRS",
+#     "config_repo_secret"    = "arn:aws:secretsmanager:us-east-1:644435390668:secret:Portfolio-Config-Repo-aNsSMy"
+#   }
+# }
 
 variable "cluster-name" {
   description = "cluster name"

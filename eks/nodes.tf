@@ -18,25 +18,31 @@ resource "aws_iam_role" "nodes" {
 
 # Assuming Policies for Nodes
 
-resource "aws_iam_role_policy_attachment" "nodes-AmazonEBSCSIDriverPolicy" {
-  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"
+resource "aws_iam_role_policy_attachment" "nodes_policy_attachment" {
+  for_each   = toset(var.IAM_policies)
+  policy_arn = each.value
   role       = aws_iam_role.nodes.name
 }
 
-resource "aws_iam_role_policy_attachment" "nodes-AmazonEKSWorkerNodePolicy" {
-  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
-  role       = aws_iam_role.nodes.name
-}
+# resource "aws_iam_role_policy_attachment" "nodes-AmazonEBSCSIDriverPolicy" {
+#   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"
+#   role       = aws_iam_role.nodes.name
+# }
 
-resource "aws_iam_role_policy_attachment" "nodes-AmazonEKS_CNI_Policy" {
-  policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
-  role       = aws_iam_role.nodes.name
-}
+# resource "aws_iam_role_policy_attachment" "nodes-AmazonEKSWorkerNodePolicy" {
+#   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
+#   role       = aws_iam_role.nodes.name
+# }
 
-resource "aws_iam_role_policy_attachment" "nodes-AmazonEC2ContainerRegistryReadOnly" {
-  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
-  role       = aws_iam_role.nodes.name
-}
+# resource "aws_iam_role_policy_attachment" "nodes-AmazonEKS_CNI_Policy" {
+#   policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
+#   role       = aws_iam_role.nodes.name
+# }
+
+# resource "aws_iam_role_policy_attachment" "nodes-AmazonEC2ContainerRegistryReadOnly" {
+#   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
+#   role       = aws_iam_role.nodes.name
+# }
 
 # Creating Node Group
 resource "aws_eks_node_group" "cluster-nodes" {
@@ -44,11 +50,7 @@ resource "aws_eks_node_group" "cluster-nodes" {
   node_group_name = "public-nodes"
   node_role_arn   = aws_iam_role.nodes.arn
 
-  subnet_ids = [
-    var.subnet1,
-    var.subnet2,
-    var.subnet3
-  ]
+  subnet_ids = values(var.subnets)
 
   capacity_type  = var.node-capacity
   instance_types = var.node-type
@@ -75,9 +77,7 @@ resource "aws_eks_node_group" "cluster-nodes" {
   }
 
   depends_on = [
-    aws_iam_role_policy_attachment.nodes-AmazonEKSWorkerNodePolicy,
-    aws_iam_role_policy_attachment.nodes-AmazonEKS_CNI_Policy,
-    aws_iam_role_policy_attachment.nodes-AmazonEC2ContainerRegistryReadOnly,
+    aws_iam_role_policy_attachment.nodes_policy_attachment
   ]
 }
 

@@ -6,33 +6,14 @@ resource "aws_vpc" "liorm-portfolio" {
   }
 }
 
-resource "aws_subnet" "us-east-sub1" {
+resource "aws_subnet" "us-east-subnets" {
+  for_each                = { for idx, az in var.availability_zone : idx => az }
   vpc_id                  = aws_vpc.liorm-portfolio.id
-  cidr_block              = "10.1.1.0/24"
+  cidr_block              = "10.1.${each.key + 1}.0/24"
   map_public_ip_on_launch = true
-  availability_zone       = var.availability_zone[0]
+  availability_zone       = each.value
   tags = {
-    Name = var.az_name[0]
-  }
-}
-
-resource "aws_subnet" "us-east-sub2" {
-  vpc_id                  = aws_vpc.liorm-portfolio.id
-  cidr_block              = "10.1.2.0/24"
-  map_public_ip_on_launch = true
-  availability_zone       = var.availability_zone[1]
-  tags = {
-    Name = var.az_name[1]
-  }
-}
-
-resource "aws_subnet" "us-east-sub3" {
-  vpc_id                  = aws_vpc.liorm-portfolio.id
-  cidr_block              = "10.1.3.0/24"
-  map_public_ip_on_launch = true
-  availability_zone       = var.availability_zone[2]
-  tags = {
-    Name = var.az_name[2]
+    Name = var.az_name[each.key]
   }
 }
 
@@ -58,17 +39,8 @@ resource "aws_route" "default_route" {
   gateway_id             = aws_internet_gateway.liorm.id
 }
 
-resource "aws_route_table_association" "liorm-pub-1" {
-  subnet_id      = aws_subnet.us-east-sub1.id
-  route_table_id = aws_route_table.liorm.id
-}
-
-resource "aws_route_table_association" "liorm-pub-2" {
-  subnet_id      = aws_subnet.us-east-sub2.id
-  route_table_id = aws_route_table.liorm.id
-}
-
-resource "aws_route_table_association" "liorm-pub-3" {
-  subnet_id      = aws_subnet.us-east-sub3.id
+resource "aws_route_table_association" "liorm-pub" {
+  for_each        = aws_subnet.us-east-subnets
+  subnet_id      = each.value.id
   route_table_id = aws_route_table.liorm.id
 }

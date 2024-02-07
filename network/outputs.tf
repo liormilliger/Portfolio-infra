@@ -1,19 +1,10 @@
+output "subnet_ids" {
+  value = { for subnet in aws_subnet.us-east-subnets : subnet.availability_zone => subnet.id }
+  description = "The IDs of the subnets in the us-east region."
+}
+
 output "VPC_ID" {
     description = "VPC id for liorm_portfolio"
     value = aws_vpc.liorm-portfolio.id
 }
 
-output "subnet1" {
-  description = "Subnet AZ1"
-  value = aws_subnet.us-east-sub1.id
-}
-
-output "subnet2" {
-  description = "Subnet AZ2"
-  value = aws_subnet.us-east-sub2.id
-}
-
-output "subnet3" {
-  description = "Subnet AZ3"
-  value = aws_subnet.us-east-sub3.id
-}
