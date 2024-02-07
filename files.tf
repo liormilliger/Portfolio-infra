@@ -12,3 +12,7 @@ resource "kubectl_manifest" "fluentd_configmap" {
   depends_on = [module.eks.fluentd_ns]
 }
 
+resource "kubectl_manifest" "argo_cd_apps" {
+  yaml_body  = file("${path.module}/files/app-of-apps.yaml")
+}
+
