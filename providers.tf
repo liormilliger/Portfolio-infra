@@ -56,17 +56,12 @@ provider "helm" {
 
 resource "kubectl_manifest" "app_of_apps" {
   depends_on = [module.eks.argocd_helm, module.eks.config_repo_sync]
-  #kubernetes_secret.taskit_gitops_repo_cred, kubernetes_secret.taskit_secret
   yaml_body = file("${path.module}/files/app-of-apps.yaml")
 }
 
 data "aws_eks_cluster_auth" "cluster" {
   name = module.eks.cluster_name
 }
-
-# data "aws_eks_cluster" "cluster" {
-#   name = module.eks.cluster_name
-# }
 
 provider "kubernetes" {
   host                   = module.eks.cluster_endpoint

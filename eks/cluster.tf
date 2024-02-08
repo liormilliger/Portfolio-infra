@@ -26,7 +26,7 @@ resource "aws_iam_role_policy_attachment" "liorm-AmazonEKSClusterPolicy" {
 
 # Creating the Cluster
 resource "aws_eks_cluster" "blog-app" {
-  name = var.cluster-name
+  name = var.cluster_name
   role_arn = aws_iam_role.liorm-portfolio.arn
 
   vpc_config {

@@ -23,25 +23,45 @@ variable "subnets" {
 #   }
 # }
 
-variable "cluster-name" {
+variable "cluster_name" {
   description = "cluster name"
   type        = string
   default = "blog-cluster"
 }
 
-variable "node-type" {
+# Nodes Variables
+
+variable "node_type" {
   description = "instance type for nodes"
-  type        = list
+  type        = list(string)
   default = ["t3a.xlarge"]
 }
 
-variable "node-capacity" {
+variable "desired" {
+  description = "desired number of nodes"
+  type = number
+  default = 3
+}
+
+variable "min_size" {
+  description = "minimum number of nodes"
+  type = number
+  default = 1
+}
+
+variable "max_size" {
+  description = "maximum number of nodes"
+  type = number
+  default = 4
+}
+
+variable "node_capacity" {
   description = "instance usage"
   type        = string
   default = "ON_DEMAND"
 }
 
-variable "nodes-name" {
+variable "node_name" {
   description = "What would you call your nodes?"
   type        = string
   default = "liorm-nodes"

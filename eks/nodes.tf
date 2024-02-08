@@ -52,13 +52,13 @@ resource "aws_eks_node_group" "cluster-nodes" {
 
   subnet_ids = values(var.subnets)
 
-  capacity_type  = var.node-capacity
-  instance_types = var.node-type
+  capacity_type  = var.node_capacity
+  instance_types = var.node_type
 
   scaling_config {
-    desired_size = 3
-    max_size     = 4
-    min_size     = 2
+    desired_size = var.desired
+    max_size     = var.max_size
+    min_size     = var.min_size
   }
 
   update_config {
@@ -89,7 +89,7 @@ resource "aws_launch_template" "naming-nodes" {
     resource_type = "instance"
     
     tags = {
-      Name = var.nodes-name
+      Name = var.node_name
       Owner = "liorm"
       bootcamp = "19"
       expiration_date = "01-01-2028"
