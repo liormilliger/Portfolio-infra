@@ -3,6 +3,8 @@ kind: Application
 metadata:
   name: app-of-apps
   namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
   source:
@@ -12,10 +14,10 @@ spec:
   destination: 
     server: https://kubernetes.default.svc
     namespace: default
-
   syncPolicy:
     syncOptions:
     - CreateNamespace=true
+    - ServerSideApply=true
     automated:
       selfHeal: true
       prune: true

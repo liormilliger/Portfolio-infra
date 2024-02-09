@@ -1,4 +1,4 @@
-#ArgoCD Release
+#Installing and Configuring ArgoCD
 
 resource "helm_release" "argocd" {
   name = "argocd"
