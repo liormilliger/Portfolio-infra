@@ -54,11 +54,6 @@ provider "helm" {
   }
 }
 
-resource "kubectl_manifest" "app_of_apps" {
-  depends_on = [module.eks.argocd_helm, module.eks.config_repo_sync]
-  yaml_body = file("${path.module}/files/app-of-apps.yaml")
-}
-
 data "aws_eks_cluster_auth" "cluster" {
   name = module.eks.cluster_name
 }

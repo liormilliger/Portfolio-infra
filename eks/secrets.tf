@@ -18,6 +18,15 @@ resource "kubernetes_secret" "csi_secret" {
   }
 }
 
+# resource "kubernetes_secret" "csi_secret" {
+#   metadata {
+#     name = "aws-secret"
+#   }
+
+#   data = {
+#     key = data.aws_secretsmanager_secret_version[var.secrets["aws-credentials"]].id
+#   }
+# }
 # Credentials for my Config-Repo
 
 data "aws_secretsmanager_secret" "config_repo_secret" {
