@@ -16,6 +16,8 @@ resource "kubernetes_secret" "csi_secret" {
   data = {
     key = data.aws_secretsmanager_secret_version.ebs-csi-secret.id
   }
+# rename []
+  # depends_on = [ aws_eks_cluster.blog-app ]
 }
 
 # resource "kubernetes_secret" "csi_secret" {
