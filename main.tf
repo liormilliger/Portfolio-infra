@@ -2,7 +2,6 @@ module "eks" {
   source = "./eks"
 
   subnets = module.network.subnet_ids
-  fluentd-cm = kubectl_manifest.fluentd_configmap
 }
 
 module "network" {

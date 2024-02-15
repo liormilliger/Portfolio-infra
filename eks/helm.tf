@@ -10,7 +10,7 @@ resource "helm_release" "argocd" {
   chart      = "argo-cd"
   version = "5.53.12"
 
-  depends_on = [ var.fluentd-cm ]
+  # depends_on = [ var.fluentd-cm ]
 }
 
 resource "kubernetes_secret" "config_repo_ssh" {
@@ -33,12 +33,12 @@ resource "kubernetes_secret" "config_repo_ssh" {
   }
 }
 
-resource "kubernetes_namespace" "fluentd" {
-  metadata {
-  name = "fluentd"
-  }
+# resource "kubernetes_namespace" "fluentd" {
+#   metadata {
+#   name = "fluentd"
+#   }
 
-}
+# }
 
 # CSI Driver Release
 resource "helm_release" "csi-driver" {
