@@ -34,7 +34,7 @@ variable "cluster_name" {
 variable "node_type" {
   description = "instance type for nodes"
   type        = list(string)
-  default = ["t3a.xlarge"]
+  default = ["t3a.large"]
 }
 
 variable "desired" {
