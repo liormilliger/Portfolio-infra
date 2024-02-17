@@ -9,8 +9,6 @@ resource "helm_release" "argocd" {
   repository = "https://argoproj.github.io/argo-helm"
   chart      = "argo-cd"
   version = "5.53.12"
-
-  # depends_on = [ var.fluentd-cm ]
 }
 
 resource "kubernetes_secret" "config_repo_ssh" {
@@ -33,13 +31,6 @@ resource "kubernetes_secret" "config_repo_ssh" {
   }
 }
 
-# resource "kubernetes_namespace" "fluentd" {
-#   metadata {
-#   name = "fluentd"
-#   }
-
-# }
-
 # CSI Driver Release
 resource "helm_release" "csi-driver" {
   name = "aws-ebs-csi-driver"
@@ -49,22 +40,4 @@ resource "helm_release" "csi-driver" {
   chart      = "aws-ebs-csi-driver"
 
   depends_on = [ kubernetes_secret.csi_secret ]
-}
-
-# Ingress-Controller Release
-
-resource "helm_release" "ingress-controller" {
-  name = "nginx-ingress-controller"
-
-  repository = "https://kubernetes.github.io/ingress-nginx"
-  chart      = "ingress-nginx"
-}
-
-data "kubernetes_service" "ingress_lb" {
-  metadata {
-    name      = "nginx-ingress-controller-ingress-nginx-controller"
-    namespace = "default"
-  }
-
-  depends_on = [ helm_release.ingress-controller ]
 }

@@ -7,7 +7,3 @@ output "cluster_name" {
   description = "Kubernetes Cluster Name"
   value       = module.eks.cluster_name
 }
-
-output "load_balancer_dns" {
-  value = module.eks.load_balancer_dns
-}
