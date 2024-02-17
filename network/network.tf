@@ -2,7 +2,7 @@ resource "aws_vpc" "liorm-portfolio" {
   cidr_block = "10.1.0.0/16"
 
   tags = {
-    Name = var.vpc-name
+    Name = var.vpc_name
   }
 }
 
@@ -20,16 +20,15 @@ resource "aws_subnet" "us-east-subnets" {
 resource "aws_internet_gateway" "liorm" {
   vpc_id = aws_vpc.liorm-portfolio.id
   tags = {
-    Name = var.vpc-name
+    Name = var.vpc_name
   }
 }
-
 
 resource "aws_route_table" "liorm" {
   vpc_id = aws_vpc.liorm-portfolio.id
 
   tags = {
-    Name = var.vpc-name
+    Name = var.vpc_name
   }
 }
 

@@ -8,3 +8,17 @@ output "VPC_ID" {
     value = aws_vpc.liorm-portfolio.id
 }
 
+output "vpc_name" {
+  description = "Your vpc name"
+  value = var.vpc_name
+}
+
+output "availability_zone" {
+  description = "Availability zone list"
+  value = var.availability_zone
+}
+
+output "az_name" {
+  description = "Availability zone name list"
+  value = var.az_name
+}
