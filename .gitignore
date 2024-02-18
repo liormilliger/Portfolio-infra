@@ -2,6 +2,5 @@ terraform.tfstate
 terraform.tfstate.backup
 .terraform.lock.hcl
 .terraform/
-terraforms.tfvars
 errored.tfstate
 terraform.tfvars
