@@ -22,15 +22,3 @@ module "network" {
 
 }
 
-module "files" {
-  source = "./files"
-}
-# module "compute" {
-#   source = "./compute"
-# }
-
-# module "security" {
-#   source = "./security"
-
-#   vpc = module.network.VPC_ID
-# }
