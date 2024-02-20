@@ -24,26 +24,6 @@ resource "aws_iam_role_policy_attachment" "nodes_policy_attachment" {
   role       = aws_iam_role.nodes.name
 }
 
-# resource "aws_iam_role_policy_attachment" "nodes-AmazonEBSCSIDriverPolicy" {
-#   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"
-#   role       = aws_iam_role.nodes.name
-# }
-
-# resource "aws_iam_role_policy_attachment" "nodes-AmazonEKSWorkerNodePolicy" {
-#   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
-#   role       = aws_iam_role.nodes.name
-# }
-
-# resource "aws_iam_role_policy_attachment" "nodes-AmazonEKS_CNI_Policy" {
-#   policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
-#   role       = aws_iam_role.nodes.name
-# }
-
-# resource "aws_iam_role_policy_attachment" "nodes-AmazonEC2ContainerRegistryReadOnly" {
-#   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
-#   role       = aws_iam_role.nodes.name
-# }
-
 # Creating Node Group
 resource "aws_eks_node_group" "cluster-nodes" {
   cluster_name    = aws_eks_cluster.blog-app.name
