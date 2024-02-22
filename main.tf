@@ -1,3 +1,11 @@
+module "network" {
+  source = "./network"
+  availability_zone = var.availability_zone
+  vpc_name = var.vpc_name
+  az_name = var.az_name
+
+}
+
 module "eks" {
   source = "./eks"
 
@@ -12,13 +20,5 @@ module "eks" {
   node_name               = var.node_name
   config-repo-secret-name = var.config-repo-secret-name
   config-repo-url         = var.config-repo-url
-}
-
-module "network" {
-  source = "./network"
-  availability_zone = var.availability_zone
-  vpc_name = var.vpc_name
-  az_name = var.az_name
-
 }
 
