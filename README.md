@@ -20,7 +20,8 @@ This project uses modular Terraform scripts for scalable and reusable infrastruc
 
 ## Infrastructure Architecture & Components
 
-![infra-Arch](https://github.com/liormilliger/Portfolio-infra/assets/64707466/bdb3828a-a1ae-4ffa-bcfb-a2eb5178e17a)
+![infra-arch-draw](https://github.com/liormilliger/Portfolio-infra/assets/64707466/c758e67f-a9b5-4315-8f5f-2afe5daf333d)
+
 
 - **AWS VPC**: Virtual Private Cloud setup for network isolation, with 3 public subnets for high-availability
 - **EKS Cluster**: Elastic Kubernetes Service with 3 nodes to manage our containerized applications, and support addons for networking, persistent-volume-claims and secure communication
