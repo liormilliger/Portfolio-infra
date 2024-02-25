@@ -83,3 +83,15 @@ variable "ACCOUNT_ID" {
   description = "AWS Account ID"
   type = string
 }
+
+variable "AWS_SECRET_NAME" {
+  description = "AWS secret name for"
+  type = string
+}
+
+variable "CONFIG_REPO_SECRET_NAME" {
+  description = "secret for config repo"
+  type = string
+}
+
+

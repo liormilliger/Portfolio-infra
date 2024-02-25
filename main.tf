@@ -22,5 +22,7 @@ module "eks" {
   config-repo-url         = var.config-repo-url
   ACCOUNT_ID = var.ACCOUNT_ID
   REGION = var.REGION
+  AWS_SECRET_NAME = var.AWS_SECRET_NAME
+  CONFIG_REPO_SECRET_NAME = var.CONFIG_REPO_SECRET_NAME
 }
 
