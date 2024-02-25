@@ -76,3 +76,10 @@ variable "config-repo-url" {
   description = "Your k8s repository ssh url"
   type        = string
 }
+
+# AWS
+
+variable "ACCOUNT_ID" {
+  description = "AWS Account ID"
+  type = string
+}

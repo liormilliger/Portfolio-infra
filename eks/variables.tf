@@ -55,3 +55,15 @@ variable "config-repo-url" {
   type = string
 }
 
+## SECRETS
+
+variable "ACCOUNT_ID" {
+  description = "AWS Account ID"
+  type = string
+}
+
+variable "REGION" {
+  description = "AWS Region"
+  type = string
+}
+

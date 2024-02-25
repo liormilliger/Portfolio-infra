@@ -20,5 +20,7 @@ module "eks" {
   node_name               = var.node_name
   config-repo-secret-name = var.config-repo-secret-name
   config-repo-url         = var.config-repo-url
+  ACCOUNT_ID = var.ACCOUNT_ID
+  REGION = var.REGION
 }
 
